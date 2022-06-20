@@ -1,0 +1,61 @@
+server:
+  port: 8001
+
+
+#debug: true
+
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: pan1234
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0ms
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092 #bootstrap-servers：连接kafka的地址，多个地址用逗号分隔
+    consumer:
+     group-id: myGroup
+     enable-auto-commit: true
+     auto-commit-interval: 100ms
+     properties:
+      session.timeout.ms: 15000
+     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+     value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+     auto-offset-reset: earliest
+    producer:
+     retries: 0 #若设置大于0的值，客户端会将发送失败的记录重新发送
+     batch-size: 16384 #当将多个记录被发送到同一个分区时， Producer 将尝试将记录组合到更少的请求中。这有助于提升客户端和服务器端的性能。这个配置控制一个批次的默认大小（以字节为单位）。16384是缺省的配置
+     buffer-memory: 33554432 #Producer 用来缓冲等待被发送到服务器的记录的总字节数，33554432是缺省配置
+     key-serializer: org.apache.kafka.common.serialization.StringSerializer #关键字的序列化类
+     value-serializer: org.apache.kafka.common.serialization.StringSerializer #值的序列化类
+
+
+logging:
+  level:
+    com.pan: info
+  file:
+    path: "E:/springbootLog/test.Log"
+#  config: classpath:aa.xml 指定日志的配置文件
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pan.pojo
+  configuration:
+    map-underscore-to-camel-case: true #识别驼峰命名法
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #配置sqL打印
+    cache-enabled: true
+
+

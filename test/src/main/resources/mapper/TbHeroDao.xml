@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pan.dao.TbHeroDao">
+
+    <resultMap id="BaseResultMap" type="com.pan.entity.TbHero" autoMapping="true">
+        <!--@Table tb_hero-->
+        <collection property="cables" ofType="com.pan.entity.Cable" autoMapping="true"/>
+    </resultMap>
+
+    <select id="querySql" resultType="map">
+        ${sql}
+    </select>
+
+    <select id="queryJoinCable" resultMap="BaseResultMap">
+        select t.*,c.cable_name,c.hero_id
+        from tb_hero t
+       left join cable c on t.id=c.hero_id
+       where t.id=#{id}
+       <!--<foreach collection="list" item="item" open="(" close=")" separator=",">-->
+           <!--item-->
+       <!--</foreach>-->
+    </select>
+
+    <select id="queryJoinCable1" resultType="map">
+        select t.*,c.cable_name,c.hero_id
+        from tb_hero t
+        left join cable c on t.id=c.hero_id
+        where t.id=#{id}
+        <!--<foreach collection="list" item="item" open="(" close=")" separator=",">-->
+        <!--item-->
+        <!--</foreach>-->
+    </select>
+
+    <select id="queryJoinCables" resultMap="BaseResultMap">
+        select t.*,c.cable_name,c.hero_id
+        from tb_hero t
+        left join cable c on t.id=c.hero_id
+        <where>
+            <if test="list.size()!=0">
+                t.id in
+                <foreach collection="list" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, username, profession, phone, email, onlinetime
+        from tb_hero
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, username, profession, phone, email, onlinetime
+        from springboot.tb_hero
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select id,username, profession, phone, email, onlinetime
+        from tb_hero
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="profession != null and profession != ''">
+                and profession = #{profession}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="onlinetime != null">
+                and onlinetime = #{onlinetime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot.tb_hero(username, profession, phone, email, onlinetime)
+        values (#{username}, #{profession}, #{phone}, #{email}, #{onlinetime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot.tb_hero
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="profession != null and profession != ''">
+                profession = #{profession},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="onlinetime != null">
+                onlinetime = #{onlinetime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot.tb_hero where id = #{id}
+    </delete>
+
+</mapper>
