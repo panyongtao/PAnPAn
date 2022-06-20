@@ -20,7 +20,7 @@ public class Application {
     @Bean
     public CharacterEncodingFilter characterEncodingFilter() {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTR-8");
+        filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         return filter;
     }
