@@ -14,16 +14,16 @@ import java.sql.SQLException;
 @Configuration
 @Slf4j
 public class OracleDataSource {
-//    @Value("jdbc:oracle:thin:@//localhost:1521/orcl")
-    @Value("${spring.datasource.url}")
+    @Value("jdbc:oracle:thin:@//localhost:1521/orcl")
+//    @Value("${spring.datasource.url}")
     private String url;
-//    @Value("SCOTT")
-    @Value("root")
+    @Value("SCOTT")
+//    @Value("root")
     private String username ;
-    @Value("pan1234")
+    @Value("Pan12345678")
     private String password;
-//    @Value("oracle.jdbc.driver.OracleDriver")
-@Value("${spring.datasource.driver-class-name}")
+    @Value("oracle.jdbc.driver.OracleDriver")
+//@Value("${spring.datasource.driver-class-name}")
     private String driverClassName ;
     @Value("com.pan.mapper")
     private String typeAliasesPackage ;
@@ -72,7 +72,6 @@ public class OracleDataSource {
         datasource.setValidationQuery("SELECT 1 FROM DUAL");
         datasource.setTestWhileIdle(true);
         datasource.setTestOnBorrow(false);
-
         try {
             datasource.setFilters(filters);
         } catch (SQLException e) {

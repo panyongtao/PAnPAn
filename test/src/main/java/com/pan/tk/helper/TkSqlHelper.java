@@ -63,7 +63,7 @@ public class TkSqlHelper extends SqlHelper {
 
     public static String selectAllColumns(Class<?> entityClass) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT");
+        sql.append("SELECT ");
         sql.append(getAllColumns(entityClass));
         //添加关联表字段
         Field[] declaredFields = entityClass.getDeclaredFields();

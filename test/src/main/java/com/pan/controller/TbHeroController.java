@@ -3,8 +3,12 @@ package com.pan.controller;
 import com.pan.annotation.CommonAuth;
 import com.pan.annotation.ParamInfo;
 import com.pan.entity.TbHero;
+import com.pan.pojo.TkHero;
 import com.pan.service.TbHeroService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -43,15 +47,16 @@ public class TbHeroController {
         return tbHero;
     }
 
-    @PostMapping("selectTkOne")
-    public TbHero selectTkOne(Integer id) {
-        TbHero tbHero = this.tbHeroService.selectTkOne(id);
+    @GetMapping("selectTkOne")
+    public TkHero selectTkOne(Integer id) {
+        TkHero tbHero = tbHeroService.selectTkOne(id);
         return tbHero;
     }
 
     @GetMapping("selectTkTwo")
-    public TbHero selectTkTwo(Integer id) {
-        TbHero tbHero = this.tbHeroService.selectTkTwo(id);
+    public TkHero selectTkTwo(Integer id) {
+        TkHero tbHero = tbHeroService.selectTkTwo(id);
+        System.out.println(tbHero);
         return tbHero;
     }
 

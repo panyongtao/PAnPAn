@@ -87,7 +87,13 @@ public class TestHero {
     public void test(){
         System.out.println(new TkHero().selectAll());
     }
-
+    @Test
+    public void selectTkOne() {
+        TkHero tkHero = new TkHero();
+        tkHero.setId(1);
+        TkHero hero = tkHero.selectByField(TkHero::getId);
+        System.out.println(hero);
+    }
     /**
      * 普通通用mapper
      */

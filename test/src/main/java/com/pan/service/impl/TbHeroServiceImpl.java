@@ -86,15 +86,19 @@ public class TbHeroServiceImpl implements TbHeroService {
     }
 
     @Override
-    public TbHero selectTkOne(Integer id) {
-        new TkHero().selectAll();
-        return null;
+    public TkHero selectTkOne(Integer id) {
+        TkHero tkHero = new TkHero();
+        tkHero.setId(id);
+        TkHero hero = tkHero.selectByField(TkHero::getId);
+        return hero;
     }
 
     @Override
     @DS("Oracle")
-    public TbHero selectTkTwo(Integer id) {
-        new TkHero().selectAll();
-        return null;
+    public TkHero selectTkTwo(Integer id) {
+        TkHero tkHero = new TkHero();
+        tkHero.setId(id);
+        TkHero hero = tkHero.selectByField(TkHero::getId);
+        return hero;
     }
 }

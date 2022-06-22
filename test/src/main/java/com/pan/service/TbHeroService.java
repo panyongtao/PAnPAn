@@ -1,6 +1,8 @@
 package com.pan.service;
 
 import com.pan.entity.TbHero;
+import com.pan.pojo.TkHero;
+
 import java.util.List;
 
 /**
@@ -54,7 +56,7 @@ public interface TbHeroService {
 
     TbHero queryById1(Integer id);
 
-    TbHero selectTkOne(Integer id);
+    TkHero selectTkOne(Integer id);
 
-    TbHero selectTkTwo(Integer id);
+    TkHero selectTkTwo(Integer id);
 }

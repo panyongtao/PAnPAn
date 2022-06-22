@@ -2,10 +2,12 @@ package com.pan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.DispatcherServlet;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
@@ -23,6 +25,20 @@ public class Application {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         return filter;
+    }
+
+    /**
+     * 只是针对url路径添加前后缀
+     * @param dispatcherServlet
+     * @return
+     */
+    @Bean
+    public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet){
+        ServletRegistrationBean reg = new ServletRegistrationBean(dispatcherServlet) ;
+        reg.getUrlMappings().clear ();
+        reg.addUrlMappings("/services/*");
+        reg.addUrlMappings("/*") ;
+        return reg;
     }
 //    @EnableOAuth2Sso
 //    @Component
