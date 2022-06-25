@@ -235,6 +235,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--设置启动类，好像不加也行-->
+                <configuration>
+                    <!--跳过测试代码的编译，只提供src/test/java类-->
+                    <!--<skip>true</skip>-->
+                </configuration>
             </plugin>
         </plugins>
     </build>

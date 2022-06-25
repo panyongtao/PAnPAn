@@ -24,6 +24,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--设置启动类好像不加也行-->
+                <configuration>
+                    <mainClass>com.pan.Application</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
