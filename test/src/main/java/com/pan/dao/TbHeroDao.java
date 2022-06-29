@@ -2,6 +2,7 @@ package com.pan.dao;
 
 import com.pan.entity.TbHero;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,15 @@ public interface TbHeroDao {
      * @return
      */
     List<Map<String,Object>> querySql(String sql);
+
+    /**
+     * 根据sql做动态查询
+     * @return
+     */
+    @Select("select t.*,c.cable_name,c.hero_id " +
+            "                     from tb_hero t\n" +
+            "                       left join cable c on t.id=c.hero_id")
+    List<Map<String,Object>> querySql2();
 
     List<TbHero> queryJoinCables(List<Integer> list);
 

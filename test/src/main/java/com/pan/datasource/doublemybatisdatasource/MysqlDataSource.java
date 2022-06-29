@@ -7,20 +7,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-//@Configuration
-//@EnableTransactionManagement
-//@MapperScan(basePackages = {"com.pan.dao","com.pan.mapper"},sqlSessionFactoryRef = "mysqlSessionFactory")
+@Configuration
+@EnableTransactionManagement
+@MapperScan(basePackages = {"com.pan.dao","com.pan.mapper"},sqlSessionFactoryRef = "mysqlSessionFactory")
 @Slf4j
 public class MysqlDataSource {
     @Value("${spring.datasource.url}")

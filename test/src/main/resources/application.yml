@@ -1,7 +1,7 @@
 server:
   port: 8001
 
-
+#springboot配置debug启动模式
 #debug: true
 
 spring:
@@ -54,8 +54,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.pan.pojo
   configuration:
-    map-underscore-to-camel-case: true #识别驼峰命名法
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #配置sqL打印
+    map-underscore-to-camel-case: true #识别驼峰命名法
     cache-enabled: true
 
 

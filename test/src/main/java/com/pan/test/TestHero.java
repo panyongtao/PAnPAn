@@ -9,6 +9,9 @@ import com.pan.mapper.HeroTkMapper;
 import com.pan.mapper.MybatisHeroMapper;
 import com.pan.pojo.MybatisHero;
 import com.pan.pojo.TkHero;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,10 @@ public class TestHero {
     MybatisHeroMapper mybatisHeroMapper;
     @Autowired
     DataSource ds;
+    @Autowired
+    SqlSession sqlSession;
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
     @Resource
     private TbHeroDao tbHeroDao;
 
@@ -62,6 +69,14 @@ public class TestHero {
         System.out.println(tbHeroDao.querySql("select t.*,c.cable_name,c.hero_id\n" +
                 "        from tb_hero t\n" +
                 "        left join cable c on t.id=c.hero_id"));
+    }
+
+    @Test
+    public void test63(){
+        System.out.println(sqlSessionFactory);
+        Configuration configuration = sqlSessionFactory.getConfiguration();
+        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        tbHeroDao.querySql2();
     }
 
     /**
