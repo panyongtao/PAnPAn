@@ -6,6 +6,7 @@ import com.pan.entity.TbHero;
 import com.pan.pojo.TkHero;
 import com.pan.service.TbHeroService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,8 +58,10 @@ public class TbHeroServiceImpl implements TbHeroService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public TbHero insert(TbHero tbHero) {
         this.tbHeroDao.insert(tbHero);
+        System.out.println(1/0);
         return tbHero;
     }
 

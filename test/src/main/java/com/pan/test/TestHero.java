@@ -9,7 +9,6 @@ import com.pan.mapper.HeroTkMapper;
 import com.pan.mapper.MybatisHeroMapper;
 import com.pan.pojo.MybatisHero;
 import com.pan.pojo.TkHero;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
@@ -17,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -73,9 +73,6 @@ public class TestHero {
 
     @Test
     public void test63(){
-        System.out.println(sqlSessionFactory);
-        Configuration configuration = sqlSessionFactory.getConfiguration();
-        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
         tbHeroDao.querySql2();
     }
 
@@ -123,5 +120,17 @@ public class TestHero {
     @Test
     public void test2(){
         System.out.println(new MybatisHero().selectAll());
+    }
+    /**
+     * 测试动态数据源事务回滚,必须开启事务注解才会生效
+     */
+    @Test
+    @Transactional
+    public void save(){
+        TbHero tbHero = new TbHero();
+        tbHero.setId(100);
+        tbHero.setUsername("pantest");
+        tbHeroDao.insert(tbHero);
+        System.out.println(1/0);
     }
 }
