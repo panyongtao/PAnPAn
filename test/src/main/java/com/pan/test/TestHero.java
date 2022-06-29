@@ -71,6 +71,12 @@ public class TestHero {
                 "        left join cable c on t.id=c.hero_id"));
     }
 
+    /**
+     * 总结以下的执行过程tbHeroDao实际上是MapperProxy这个代理类把当前接口赋给了此代理类的一个接口属性
+     * 之后调用下面这个invoke方法，其中method就是querySql2,sqlSession是由会话工厂创建的
+     * 1.invoke(proxy, method, args, sqlSession);
+     * 2.mapperMethod.execute(sqlSession, args);，这一步就是我们常见的增删改查方法
+     */
     @Test
     public void test63(){
         tbHeroDao.querySql2();
