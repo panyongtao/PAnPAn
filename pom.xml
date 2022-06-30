@@ -15,6 +15,7 @@
         <module>service</module>
         <module>wcpconsumer</module>
         <module>wcpservice</module>
+        <module>BeanSearcher</module>
     </modules>
 
     <!--父依赖规定了版本-->

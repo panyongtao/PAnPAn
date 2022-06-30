@@ -3,7 +3,6 @@ server:
 
 #springboot配置debug启动模式
 #debug: true
-
 spring:
   mvc:
     servlet:
