@@ -30,6 +30,7 @@ public class Application {
      * 参考：https://github.com/ejlchina/bean-searcher/issues/10
      * 用 age=[20,30] 替代 age-0=20&age-1=30 #10
      * @return 参数过滤器
+     * 逻辑删除列也要添加
      */
     @Bean
     public ParamFilter myParamFilter() {
@@ -70,6 +71,8 @@ public class Application {
                     }
                     newParaMap.put(key, value);
                 });
+                //可以在此处增加逻辑删除列功能
+//                newParaMap.put("deleteFlag","1");
                 return newParaMap;
             }
 

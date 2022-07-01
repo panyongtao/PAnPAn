@@ -62,7 +62,12 @@ public class TestHero {
         tbHero.setParams(param);
         //System.out.println(mapSearcher.searchAll(com.pan.pojo.TbHero.class, new HashMap<>()));
         System.out.println(tbHero.searchAll());
+    }
 
+    @Test
+    public void test72(){
+        com.pan.pojo.TbHero  tbHero = new com.pan.pojo.TbHero();
+        System.out.println(tbHero.searchAll());
     }
     /**
      * mybatis
