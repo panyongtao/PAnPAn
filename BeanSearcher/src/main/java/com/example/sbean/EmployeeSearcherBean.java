@@ -137,7 +137,7 @@ import java.util.Map;
 		autoMapTo = "e"							// 字段没使用 DbField 注解时，自动映射到 employee 表
 )
 @Data
-public class EmployeeSearcherBean extends CommonSearcherBean<EmployeeSearcherBean> implements BeanAware, ParamAware { // 这两接口 都是可选的
+public class EmployeeSearcherBean extends CommonSearcherBean implements BeanAware, ParamAware { // 这两接口 都是可选的
 	// 自动映射到 "e.id"
 	private Long id;
 

@@ -1,6 +1,5 @@
 package com.example.sbean;
 
-import com.example.service.CommonSearcherBean;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +12,7 @@ import java.util.Date;
  * @since 2022-03-27 14:25:56
  */
 @Data
-public class TbHero extends CommonSearcherBean implements Serializable {
+public class TbHeroTmp implements Serializable {
     private static final long serialVersionUID = -30929629985905611L;
 
     private Integer id;

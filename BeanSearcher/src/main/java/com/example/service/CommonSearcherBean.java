@@ -9,9 +9,9 @@ import com.ejlchina.searcher.bean.DbIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.poi.ss.formula.functions.T;
 
 import javax.persistence.Transient;
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,7 @@ import java.util.Map;
  *
  */
 @Data
-public abstract class CommonSearcherBean<T extends CommonSearcherBean> {
+public abstract class CommonSearcherBean {
     @Transient
     @JsonIgnore
     @DbIgnore
@@ -63,7 +63,7 @@ public abstract class CommonSearcherBean<T extends CommonSearcherBean> {
     @JsonIgnore
     @DbIgnore
     //当前bean类
-    private Class<T> beanSearcherClass;
+    private Class beanSearcherClass;
     @Transient
     @JsonIgnore
     @DbIgnore
@@ -76,8 +76,7 @@ public abstract class CommonSearcherBean<T extends CommonSearcherBean> {
     protected String summeryField;
     public CommonSearcherBean() {
         //获取泛型类型
-        ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-        beanSearcherClass = (Class<T>) pt.getActualTypeArguments()[0];
+        beanSearcherClass = this.getClass();
     }
 
     /**
@@ -102,7 +101,7 @@ public abstract class CommonSearcherBean<T extends CommonSearcherBean> {
      * 根据条件只查询其中一条
      * @return
      */
-    public T searchFirst(){
+    public Object searchFirst(){
        return beanSearcher().searchFirst(beanSearcherClass , params);
     }
 

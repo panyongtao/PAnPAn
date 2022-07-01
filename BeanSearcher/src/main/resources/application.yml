@@ -8,13 +8,13 @@ spring:
     username: root
     password: pan1234
 #初始化表
-  sql:
-    init:
-      username: root
-      password: pan1234
-      schema-locations: classpath:db/schema.sql
-      data-locations: classpath:db/data.sql
-      mode: always
+#  sql:
+#    init:
+#      username: root
+#      password: pan1234
+#      schema-locations: classpath:db/schema.sql
+#      data-locations: classpath:db/data.sql
+#      mode: always
 #设置前后缀
   mvc:
     view:

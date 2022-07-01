@@ -30,17 +30,32 @@ public class EmployeeController  {
 	/**
 	 * 员工列表检索接口
 	 */
-	@GetMapping("/index")
-	public Object index(@RequestParam Map<String, Object> params) {
-		// 组合检索、排序、分页 和 统计 都在这一句代码中实现了
-		EmployeeSearcherBean bean = new EmployeeSearcherBean();
-		bean.setParams(params);
-		val list=new ArrayList<String>();
-		list.add("age");
-		bean.setSummerFieldList(list);
-		return bean.search();
-		//return beanSearcher.search(Employee.class, params, new String[] { "age" });
-	}
+//	@GetMapping("/index1")
+//	public Object index1(@RequestParam Map<String, Object> params) {
+//		// 组合检索、排序、分页 和 统计 都在这一句代码中实现了
+//		EmployeeSearcherBean bean = new EmployeeSearcherBean();
+//		bean.setParams(params);
+//		val list=new ArrayList<String>();
+//		list.add("age");
+//		bean.setSummerFieldList(list);
+//		return bean.search();
+//		//return beanSearcher.search(Employee.class, params, new String[] { "age" });
+//	}
+
+    /**
+     * 员工列表检索接口 形式查询
+     */
+    @GetMapping("/index")
+    public Object index(@RequestParam Map<String, Object> params) {
+        // 组合检索、排序、分页 和 统计 都在这一句代码中实现了
+        EmployeeSearcherBean bean = new EmployeeSearcherBean ();
+        bean.setParams(params);
+        val list=new ArrayList<String>();
+        list.add("age");
+        bean.setSummerFieldList(list);
+        return bean.search();
+        //return beanSearcher.search(Employee.class, params, new String[] { "age" });
+    }
 
 
 

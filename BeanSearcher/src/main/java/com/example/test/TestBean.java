@@ -1,25 +1,34 @@
 package com.example.test;
 
+import com.ejlchina.searcher.BeanSearcher;
 import com.ejlchina.searcher.operator.Equal;
 import com.ejlchina.searcher.operator.GreaterEqual;
 import com.ejlchina.searcher.param.Operator;
 import com.ejlchina.searcher.util.MapUtils;
 import com.example.Application;
-import com.example.sbean.TbHero;
+import com.example.sbean.TbHeroExtend;
 import com.example.sbean.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=Application.class)
 public class TestBean {
+    @Resource
+    private BeanSearcher beanSearcher;
     @Test
     public void test(){
-        System.out.println(new TbHero().searchAll());
+//        System.out.println(new TbHero().searchAll());
+        TbHeroExtend tbHeroExtend = new TbHeroExtend();
+        List<TbHeroExtend> tbHeroExtends = beanSearcher.searchAll(TbHeroExtend.class, new HashMap<>());
+        System.out.println(tbHeroExtend.searchAll());
     }
 
     /**

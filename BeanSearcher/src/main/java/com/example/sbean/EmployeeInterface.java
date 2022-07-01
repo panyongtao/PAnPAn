@@ -1,10 +1,14 @@
 package com.example.sbean;
 
 import com.ejlchina.searcher.bean.*;
+import com.example.service.SearcheInterface;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SearchBean(
@@ -13,9 +17,19 @@ import java.util.Map;
 		autoMapTo = "e"							// 字段没使用 DbField 注解时，自动映射到 employee 表
 )
 @Data
-public class Employee implements BeanAware, ParamAware { // 这两接口 都是可选的
-
-
+public class EmployeeInterface implements BeanAware, ParamAware,SearcheInterface { // 这两接口 都是可选的
+	@JsonIgnore
+	@DbIgnore
+	//核心传参，方便bean类通过内部属性params来传参
+	protected Map<String, Object> params=new HashMap<>();
+	@JsonIgnore
+	@DbIgnore
+	//统计字段list
+	protected List<String> summerFieldList;
+	@JsonIgnore
+	@DbIgnore
+	//单个统计字段
+	protected String summeryField;
 	// 自动映射到 "e.id"
 	private Long id;
 
