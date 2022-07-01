@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import com.ejlchina.searcher.bean.DbIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.Page;
 import com.pan.tk.annotion.*;
@@ -41,23 +42,34 @@ public abstract class BeanManual <D extends TkMapper<T>,T extends BeanManual>{
     private static final long serialVersionUID = -4986681654713627294L;
     @Transient
     @JsonIgnore
+    @DbIgnore
     protected D mapper;
+    @DbIgnore
     protected List<T> list;
     @Transient
     @JsonIgnore
+    @DbIgnore
     protected boolean queryOneOrMany = false;
     @Transient
     @JsonIgnore
+    @DbIgnore
     private Class<T>modeClass;
     @Transient
+    @DbIgnore
     protected Integer pageNo;
     @Transient
+    @DbIgnore
     protected Integer pageSize;
     public BeanManual() {
+        //增加异常捕获，以便于子类继承实体类可以使用BeanSearcher来查询
         //获取泛型类型
-        ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-        modeClass = (Class<T>) pt.getActualTypeArguments()[1];
-        mapper = SpringUtil.getBean((Class<D>) pt.getActualTypeArguments()[0]);
+        try {
+            ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+            modeClass = (Class<T>) pt.getActualTypeArguments()[1];
+            mapper = SpringUtil.getBean((Class<D>) pt.getActualTypeArguments()[0]);
+        } catch (Exception ignore) {
+
+        }
     }
     public String selectSeq(String seq){ return mapper.selectSeq(seq); }
     public T selectById(){

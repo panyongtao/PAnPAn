@@ -1,5 +1,8 @@
 package com.pan;
 
+import com.ejlchina.json.JSONKit;
+import com.ejlchina.searcher.BeanMeta;
+import com.ejlchina.searcher.ParamFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -10,6 +13,9 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import tk.mybatis.spring.annotation.MapperScan;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 @MapperScan(basePackages = {"com.pan.dao","com.pan.mapper"})  //1
 @EnableScheduling
@@ -17,6 +23,65 @@ import tk.mybatis.spring.annotation.MapperScan;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    /**
+     * 为了简化多值参数传递
+     * 参考：https://github.com/ejlchina/bean-searcher/issues/10
+     * 用 age=[20,30] 替代 age-0=20&age-1=30 #10
+     * @return 参数过滤器
+     */
+    @Bean
+    public ParamFilter myParamFilter() {
+        return new ParamFilter() {
+            final String OP_SUFFIX = "-op";
+            @Override
+            public <T> Map<String, Object> doFilter(BeanMeta<T> beanMeta, Map<String, Object> paraMap) {
+                Map<String, Object> newParaMap = new HashMap<>();
+                paraMap.forEach((key, value) -> {
+                    if (key == null) {
+                        return;
+                    }
+                    boolean isOpKey = key.endsWith(OP_SUFFIX);
+                    String opKey = isOpKey ? key : key + OP_SUFFIX;
+                    Object opVal = paraMap.get(opKey);
+                    if (!"mv".equals(opVal) && !"bt".equals(opVal)) {
+                        newParaMap.put(key, value);
+                        return;
+                    }
+                    if (newParaMap.containsKey(key)) {
+                        return;
+                    }
+                    String valKey = key;
+                    Object valVal = value;
+                    if (isOpKey) {
+                        valKey = key.substring(0, key.length() - OP_SUFFIX.length());
+                        valVal = paraMap.get(valKey);
+                    }
+                    if (likelyJsonArr(valVal)) {
+                        try {
+                            String vKey = valKey;
+                            JSONKit.toArray((String) valVal).forEach(
+                                    (index, data) -> newParaMap.put(vKey + "-" + index, data.toString())
+                            );
+                            newParaMap.put(opKey, opVal);
+                            return;
+                        } catch (Exception ignore) {}
+                    }
+                    newParaMap.put(key, value);
+                });
+                return newParaMap;
+            }
+
+            private boolean likelyJsonArr(Object value) {
+                if (value instanceof String) {
+                    String str = ((String) value).trim();
+                    return str.startsWith("[") && str.endsWith("]");
+                }
+                return false;
+            }
+
+        };
     }
 
     @Bean

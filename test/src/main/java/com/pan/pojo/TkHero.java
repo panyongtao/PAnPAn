@@ -1,5 +1,6 @@
 package com.pan.pojo;
 
+import com.ejlchina.searcher.bean.SearchBean;
 import com.pan.mapper.HeroTkMapper;
 import com.pan.tk.BeanManual;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Data
 @Table(name = "tb_hero")  //3.给通用mapper找表用
+@SearchBean(tables="tb_hero t",autoMapTo = "t")
 public class TkHero extends BeanManual<HeroTkMapper,TkHero> implements Serializable {
     @Id  //主键
     @KeySql(useGeneratedKeys = true)

@@ -1,6 +1,8 @@
 package com.pan.test;
 
 
+import com.ejlchina.searcher.BeanSearcher;
+import com.ejlchina.searcher.util.MapUtils;
 import com.pan.Application;
 import com.pan.dao.TbHeroDao;
 import com.pan.entity.TbHero;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=Application.class)
@@ -40,7 +43,27 @@ public class TestHero {
     SqlSessionFactory sqlSessionFactory;
     @Resource
     private TbHeroDao tbHeroDao;
+    @Autowired
+    private BeanSearcher beanSearcher;
+    @Autowired
+    private BeanSearcher mapSearcher;
 
+    /**
+     * 测试BeanSearcher
+     */
+    @Test
+    public void test71(){
+        TkHero tkHero = new TkHero();
+        //System.out.println(beanSearcher.searchAll(TkHero.class,new HashMap<>()));
+        //System.out.println(tkHero.selectAll());
+        com.pan.pojo.TbHero  tbHero = new com.pan.pojo.TbHero ();
+        Map param=MapUtils.builder()
+                .field(com.pan.pojo.TbHero::getCableName, "H").build();
+        tbHero.setParams(param);
+        //System.out.println(mapSearcher.searchAll(com.pan.pojo.TbHero.class, new HashMap<>()));
+        System.out.println(tbHero.searchAll());
+
+    }
     /**
      * mybatis
      */
