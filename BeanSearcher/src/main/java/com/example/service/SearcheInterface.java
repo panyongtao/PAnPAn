@@ -76,7 +76,7 @@ public interface SearcheInterface {
      * 根据条件只查询其中一条
      * @return
      */
-    default Object searchFirst(){
+     default Object searchFirst(){
         return beanSearcher().searchFirst(this.getClass() , getParams());
     }
     /**

@@ -1,0 +1,4 @@
+1.APIfox定义接口并创建表
+2.根据表生成3层类
+3.和数据库交互使用BeanSearcher
+4.和其他系统对接使用OKHttps

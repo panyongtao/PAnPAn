@@ -1,12 +1,15 @@
 package com.example.test;
 
 import com.ejlchina.searcher.BeanSearcher;
+import com.ejlchina.searcher.MapSearcher;
+import com.ejlchina.searcher.SearchResult;
 import com.ejlchina.searcher.operator.Equal;
 import com.ejlchina.searcher.operator.GreaterEqual;
 import com.ejlchina.searcher.param.Operator;
 import com.ejlchina.searcher.util.MapUtils;
 import com.example.Application;
 import com.example.sbean.TbHeroExtend;
+import com.example.sbean.Tmp;
 import com.example.sbean.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,12 +26,22 @@ import java.util.Map;
 public class TestBean {
     @Resource
     private BeanSearcher beanSearcher;
+    @Resource
+    private MapSearcher mapSearcher;
     @Test
     public void test(){
 //        System.out.println(new TbHero().searchAll());
         TbHeroExtend tbHeroExtend = new TbHeroExtend();
         List<TbHeroExtend> tbHeroExtends = beanSearcher.searchAll(TbHeroExtend.class, new HashMap<>());
         System.out.println(tbHeroExtend.searchAll());
+    }
+
+    @Test
+    public void test2(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("fieldName","username");
+        SearchResult<Map<String, Object>> search = mapSearcher.search(Tmp.class, hashMap);
+        System.out.println(search);
     }
 
     /**
