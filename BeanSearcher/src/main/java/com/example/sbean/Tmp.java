@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @SearchBean(tables="tb_hero t",autoMapTo ="t" )
 @Data
-public class Tmp{
+public class Tmp  {
     @DbField(":fieldName:")
     private String field;
 }

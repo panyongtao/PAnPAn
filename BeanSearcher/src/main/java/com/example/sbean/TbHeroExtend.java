@@ -1,6 +1,5 @@
 package com.example.sbean;
 
-import com.ejlchina.searcher.bean.SearchBean;
 import lombok.Data;
 
 /**
@@ -11,8 +10,10 @@ import lombok.Data;
  * 实体类省略了 @SearchBean 注解
  * 实体类的 @SearchBean 没有指定 tables 属性
  * 实体类的 @SearchBean 指定了 autoMapTo 属性
+ * 3.8版本不用指定自定映射也行
  */
-@SearchBean(tables="tb_hero t",autoMapTo ="t" )
+//由于配置了冗余后缀Extend因此此注解可以省略
+//@SearchBean(tables="tb_hero")
 @Data
 public class TbHeroExtend extends TbHero {
     private String phone;

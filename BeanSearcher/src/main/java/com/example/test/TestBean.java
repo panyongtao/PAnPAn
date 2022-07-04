@@ -9,6 +9,7 @@ import com.ejlchina.searcher.param.Operator;
 import com.ejlchina.searcher.util.MapUtils;
 import com.example.Application;
 import com.example.sbean.TbHeroExtend;
+import com.example.sbean.TbHeroTmp;
 import com.example.sbean.Tmp;
 import com.example.sbean.User;
 import org.junit.Test;
@@ -18,7 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,8 +32,8 @@ public class TestBean {
     public void test(){
 //        System.out.println(new TbHero().searchAll());
         TbHeroExtend tbHeroExtend = new TbHeroExtend();
-        List<TbHeroExtend> tbHeroExtends = beanSearcher.searchAll(TbHeroExtend.class, new HashMap<>());
         System.out.println(tbHeroExtend.searchAll());
+        System.out.println(new TbHeroTmp().searchAll());
     }
 
     @Test
