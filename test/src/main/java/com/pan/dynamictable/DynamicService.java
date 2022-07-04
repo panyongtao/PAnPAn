@@ -4,7 +4,7 @@ package com.pan.dynamictable;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import com.pan.dynamictable.dao.DynamicMapper;
+import com.pan.mapper.DynamicMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

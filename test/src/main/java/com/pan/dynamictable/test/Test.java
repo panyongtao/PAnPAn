@@ -14,6 +14,6 @@ public class Test {
     private  DynamicService dynamicService;
     @org.junit.Test
     public void test(){
-        System.out.println(dynamicService);
+        System.out.println(dynamicService.getById("tb_hero",1l));
     }
 }
