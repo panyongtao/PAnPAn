@@ -51,7 +51,8 @@
         <if test="ascs != null and ascs != ''">
             ${ascs} asc,
         </if>
-        create_time desc
+        id desc
+<!--         create_time desc-->
         <if test="current != null">
             <if test="size != null">
                 limit  ${size}  offset ${(current-1)*size}
@@ -74,7 +75,7 @@
         <include refid="paramSql"></include>
     </select>
     <select id="existTable" resultType="java.lang.Integer">
-        select count(*) from pg_class where relname =  #{tableName}
+        SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name =  #{tableName}
     </select>
     <select id="selectColumns" resultType="java.lang.String">
         SELECT

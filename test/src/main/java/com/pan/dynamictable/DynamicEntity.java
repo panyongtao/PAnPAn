@@ -28,7 +28,7 @@ public class DynamicEntity {
             }
         });
         params.put("id",id);
-        params.put("create_time",new Date());
+//        params.put("create_time",new Date());
         this.params = params;
     }
 }
