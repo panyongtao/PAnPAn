@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.pan.dao","com.pan.mapper"})  //1
+@MapperScan(basePackages = {"com.pan.dao","com.pan.mapper","com.pan.dynamictable.dao"})  //1
 @EnableScheduling
 @ImportResource(locations = {"classpath:thread-pool.xml"})
 public class Application {

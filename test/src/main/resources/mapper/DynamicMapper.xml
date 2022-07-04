@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pan.dynamictable.dao.DynamicMapper" >
+
+    <sql id="paramSql">
+        <if test="params != null and params.size != 0">
+            <where>
+                <foreach item="value" index="key" collection="params" separator="">
+                    <if test="value != null ">
+                        AND  ${key} = #{value}
+                    </if>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+        insert  into ${tableName}
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            ${key}
+        </foreach>
+        values
+        <foreach collection="params.values"  item="value" open="(" close=")" separator=",">
+            #{value}
+        </foreach>
+    </insert>
+
+
+    <update id="updateById" >
+        UPDATE ${tableName} set
+        <foreach item="value" index="key" collection="params" separator=",">
+            <if test="key != 'id'">
+                ${key} = #{value}
+            </if>
+        </foreach>
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <select id="selectById" resultType="java.util.Map" parameterType="org.springblade.gis.modules.dynamic.entity.DynamicEntity">
+    select  * from  ${tableName} where id=#{id}
+  </select>
+
+    <select id="selectList" resultType="java.util.Map">
+        select  ${columns} from  ${tableName}
+        <include refid="paramSql"></include>
+        ORDER BY
+        <if test="descs != null and descs != ''">
+            ${desces} desc,
+        </if>
+        <if test="ascs != null and ascs != ''">
+            ${ascs} asc,
+        </if>
+        create_time desc
+        <if test="current != null">
+            <if test="size != null">
+                limit  ${size}  offset ${(current-1)*size}
+            </if>
+            <if test="size == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+
+    <delete id="removeByIds">
+        delete  from  ${tableName} where id in
+        <foreach collection="ids"  item="id" open="(" separator="," close=")"  >
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*) from ${tableName}
+        <include refid="paramSql"></include>
+    </select>
+    <select id="existTable" resultType="java.lang.Integer">
+        select count(*) from pg_class where relname =  #{tableName}
+    </select>
+    <select id="selectColumns" resultType="java.lang.String">
+        SELECT
+            A.attname
+        FROM
+            pg_class AS C,
+            pg_attribute AS A
+        WHERE
+            C.relname =  #{tableName}
+          AND A.attrelid = C.oid
+          AND A.attnum > 0
+    </select>
+
+</mapper>
