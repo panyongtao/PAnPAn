@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -21,6 +22,11 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     DataSource oracleDatasource;
     //当前使用的数据源标识
     public static ThreadLocal<String> datasourceName=new ThreadLocal();
+    public static String getDatasourceType(){
+        String databaseType = DynamicDataSource.datasourceName.get();
+        databaseType= StringUtils.isEmpty(databaseType)?"Mysql":databaseType;
+        return databaseType;
+    }
     /**
      *返回当前数据源标识
      */

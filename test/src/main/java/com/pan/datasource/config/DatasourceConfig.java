@@ -43,6 +43,7 @@ public class DatasourceConfig {
         if (StringUtils.isNotBlank(logClassStr)) {
             configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
         }
+//        bean.setPlugins(new PageInterceptor());
         return bean;
     }
 

@@ -14,6 +14,10 @@ import java.util.Map;
 @Service
 public class DynamicService extends ServiceImpl<DynamicMapper,DynamicEntity> {
 
+    public List<Map<String,Object>> querySql(String sql){
+        return baseMapper.querySql(sql);
+    };
+
     public  List<String> selectColumns(String taleName) {
         return baseMapper.selectColumns(taleName);
     }
@@ -47,6 +51,8 @@ public class DynamicService extends ServiceImpl<DynamicMapper,DynamicEntity> {
     public  boolean removeByIds(String tableName, List<Long> ids){
         return SqlHelper.retBool(baseMapper.removeByIds(tableName,ids));
     }
-
+    public Long selectSeq(String seq){
+        return baseMapper.selectSeq(seq);
+    }
 
 }

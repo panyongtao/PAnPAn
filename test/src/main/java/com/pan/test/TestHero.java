@@ -3,13 +3,16 @@ package com.pan.test;
 
 import com.ejlchina.searcher.BeanSearcher;
 import com.ejlchina.searcher.util.MapUtils;
+import com.github.pagehelper.PageHelper;
 import com.pan.Application;
 import com.pan.dao.TbHeroDao;
+import com.pan.datasource.DynamicDataSource;
 import com.pan.entity.TbHero;
 import com.pan.mapper.HeroMapper;
 import com.pan.mapper.HeroTkMapper;
 import com.pan.mapper.MybatisHeroMapper;
 import com.pan.pojo.MybatisHero;
+import com.pan.pojo.TbOracleHero;
 import com.pan.pojo.TkHero;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -69,6 +72,26 @@ public class TestHero {
         com.pan.pojo.TbHero  tbHero = new com.pan.pojo.TbHero();
         System.out.println(tbHero.searchAll());
     }
+
+    /**
+     * 数据源的使用
+     */
+    @Test
+    public void test73(){
+        DynamicDataSource.datasourceName.set("Oracle");
+        System.out.println(new TbOracleHero().searchAll());
+    }
+
+    /**
+     * mysql分页或者oracle分页测试
+     */
+    @Test
+    public void test74(){
+        DynamicDataSource.datasourceName.set("Oracle");
+        PageHelper.startPage(1,4);
+        System.out.println(new TkHero().selectAll());
+    }
+
     /**
      * mybatis
      */

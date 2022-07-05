@@ -12,7 +12,7 @@ import java.util.Map;
 public class DynamicEntity {
     /** 主键 */
     @TableId(value = "id",type= IdType.ASSIGN_ID)
-    private Long id;
+    private long id;
     private String tableName;
     private Map<String,Object> params;
     SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pan.mapper.DynamicMapper" >
 
+    <select id="querySql" resultType="java.util.Map">
+        ${sql}
+    </select>
     <sql id="paramSql">
         <if test="params != null and params.size != 0">
             <where>
@@ -13,14 +16,16 @@
             </where>
         </if>
     </sql>
-    <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+
+    <!--!!oracle的话指定useGeneratedKeys="false" mysql的话指定为true-->
+    <insert id="insert"  useGeneratedKeys="false" keyProperty="id">
         insert  into ${tableName}
         <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
             ${key}
         </foreach>
         values
-        <foreach collection="params.values"  item="value" open="(" close=")" separator=",">
-            #{value}
+        <foreach collection="params.values" item="value" open="(" close=")" separator=",">
+                #{value}
         </foreach>
     </insert>
 
@@ -42,23 +47,48 @@
   </select>
 
     <select id="selectList" resultType="java.util.Map">
-        select  ${columns} from  ${tableName}
-        <include refid="paramSql"></include>
-        ORDER BY
-        <if test="descs != null and descs != ''">
-            ${desces} desc,
-        </if>
-        <if test="ascs != null and ascs != ''">
-            ${ascs} asc,
-        </if>
-        id desc
-<!--         create_time desc-->
-        <if test="current != null">
-            <if test="size != null">
-                limit  ${size}  offset ${(current-1)*size}
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Oracle'">
+            SELECT *
+            FROM (SELECT
+            TMP_PAGE.*,
+            ROWNUM PAGEHELPER_ROW_ID
+            FROM ( select  ${columns} from  ${tableName}
+            <include refid="paramSql"></include>
+            ORDER BY
+            <if test="descs != null and descs != ''">
+                ${desces} desc,
             </if>
-            <if test="size == null">
-                limit ${limit}
+            <if test="ascs != null and ascs != ''">
+                ${ascs} asc,
+            </if>
+            id desc
+            ) TMP_PAGE)
+            <if test="current != null">
+                <if test="size != null">
+                    WHERE PAGEHELPER_ROW_ID &gt;= ${(current-1)*size} AND PAGEHELPER_ROW_ID &lt; ${current*size}
+                </if>
+            </if>
+        </if>
+
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Mysql'">
+            select  ${columns} from  ${tableName}
+            <include refid="paramSql"></include>
+            ORDER BY
+            <if test="descs != null and descs != ''">
+                ${desces} desc,
+            </if>
+            <if test="ascs != null and ascs != ''">
+                ${ascs} asc,
+            </if>
+            id desc
+            <!--         create_time desc-->
+            <if test="current != null">
+                <if test="size != null">
+                    limit  ${size}  offset ${(current-1)*size}
+                </if>
+                <if test="size == null">
+                    limit ${limit}
+                </if>
             </if>
         </if>
     </select>
@@ -75,18 +105,27 @@
         <include refid="paramSql"></include>
     </select>
     <select id="existTable" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name =  #{tableName}
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Oracle'">
+            select COUNT(*)  from user_tables where Table_Name=upper( #{tableName})
+        </if>
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Mysql'">
+            SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name =  #{tableName} and TABLE_SCHEMA='springboot'
+        </if>
     </select>
     <select id="selectColumns" resultType="java.lang.String">
-        SELECT
-            A.attname
-        FROM
-            pg_class AS C,
-            pg_attribute AS A
-        WHERE
-            C.relname =  #{tableName}
-          AND A.attrelid = C.oid
-          AND A.attnum > 0
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Oracle'">
+            select COLUMN_NAME
+            from user_tab_columns
+            where Table_Name = upper(#{tableName})
+        </if>
+        <if test="@com.pan.datasource.DynamicDataSource@getDatasourceType()=='Mysql'">
+            SELECT COLUMN_NAME
+            FROM information_schema.columns
+            where Table_name = #{tableName} and TABLE_SCHEMA = 'springboot'
+        </if>
     </select>
 
+    <select id="selectSeq" resultType="java.lang.Long">
+        select ${seq}.nextval from dual
+    </select>
 </mapper>
