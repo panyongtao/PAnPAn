@@ -2,15 +2,11 @@ bean-searcher:
   params:
     pagination:
       start: 1
-  sql:
-    default-mapping:
-      redundant-suffixes: Extend,Tmp
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1/beansearchdb?useSSL=false&autoReconnect=true&failOverReadOnly=false
     username: root
     password: pan1234
-
 #初始化表
 #  sql:
 #    init:
