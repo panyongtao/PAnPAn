@@ -1,0 +1,11 @@
+jstat -options  必须要结合pid来使用
+jps  查看所有进程的pid信息
+jstat -class 5980 100   每100ms查询一次pid进程信息
+jstack 2516>E:/a.log
+jmap -histo:live,file=yootk-histo.data pid  生成对象信息
+例：jmap -histo 2516
+jstack pid查看死锁
+jconsole
+
+使用mat堆栈分析工具
+

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
 import com.pan.Application;
 import com.pan.datasource.DynamicDataSource;
+import com.pan.dynamictable.DynamicConfig;
 import com.pan.dynamictable.DynamicEntity;
 import com.pan.dynamictable.DynamicService;
 import com.pan.dynamictable.DynamicWrapper;
@@ -30,6 +31,12 @@ public class Test {
         System.out.println(dynamicService.getById("tb_hero",1l));
     }
 
+    @Autowired
+    private DynamicConfig dynamicConfig;
+    @org.junit.Test
+    public void testd(){
+        System.out.println(dynamicConfig);
+    }
     /**
      * 保存参数有什么类型就保存什么字段
      */

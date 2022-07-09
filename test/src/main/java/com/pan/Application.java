@@ -3,6 +3,8 @@ package com.pan;
 import com.ejlchina.json.JSONKit;
 import com.ejlchina.searcher.BeanMeta;
 import com.ejlchina.searcher.ParamFilter;
+import com.ejlchina.searcher.dialect.Dialect;
+import com.ejlchina.searcher.dialect.OracleDialect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -16,6 +18,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 打包命令java -jar a.jar
+ */
 @SpringBootApplication
 @MapperScan(basePackages = {"com.pan.dao","com.pan.mapper"})  //1
 @EnableScheduling
@@ -25,6 +30,11 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    //    @Bean
+    //oracle下使用的话需要定义方言
+    public Dialect oracleDialet(){
+        return new OracleDialect();
+    }
     /**
      * 为了简化多值参数传递
      * 参考：https://github.com/ejlchina/bean-searcher/issues/10

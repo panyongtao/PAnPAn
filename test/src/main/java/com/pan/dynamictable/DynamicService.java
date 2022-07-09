@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service
 public class DynamicService extends ServiceImpl<DynamicMapper,DynamicEntity> {
-
+    //todo table校验
     public List<Map<String,Object>> querySql(String sql){
         return baseMapper.querySql(sql);
     };

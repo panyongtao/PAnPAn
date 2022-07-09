@@ -56,6 +56,7 @@ public class TestHero {
      */
     @Test
     public void test71(){
+//        DynamicDataSource.datasourceName.set("Oracle");
         TkHero tkHero = new TkHero();
         //System.out.println(beanSearcher.searchAll(TkHero.class,new HashMap<>()));
         //System.out.println(tkHero.selectAll());

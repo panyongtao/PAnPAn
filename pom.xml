@@ -17,6 +17,8 @@
         <module>wcpservice</module>
         <module>BeanSearcher</module>
         <module>OkHttp</module>
+        <module>testjvm</module>
+        <module>testdatabase</module>
     </modules>
 
     <!--父依赖规定了版本-->
