@@ -19,6 +19,7 @@
         <module>OkHttp</module>
         <module>testjvm</module>
         <module>testdatabase</module>
+        <module>istarter</module>
     </modules>
 
     <!--父依赖规定了版本-->
@@ -233,7 +234,7 @@
             <version>3.5.1</version>
         </dependency>
     </dependencies>
-    <!--用于打包的插件-->
+    <!--用于打包的插件，如果子模块不需要父模块打包，下面打包可以注释掉-->
     <build>
         <plugins>
             <plugin>
