@@ -1,0 +1,7 @@
+1.solr数据清空
+ DOCUMENTS-update-xml
+ <delete><query>*:*</query></delete>
+ <commit/>
+2.solr域必须要先定义才能使用
+
+3.实体类未被映射到的域需要清空数据再导入数据

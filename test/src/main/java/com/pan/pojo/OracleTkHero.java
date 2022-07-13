@@ -7,10 +7,8 @@ import com.alibaba.excel.annotation.write.style.HeadRowHeight;
 import com.alibaba.excel.annotation.write.style.HeadStyle;
 import com.pan.mapper.OracleHeroTkMapper;
 import com.pan.tk.BeanManual;
-import com.pan.tk.annotion.Condition;
 import com.pan.tk.annotion.JoinType;
 import com.pan.tk.annotion.PageInit;
-import com.pan.tk.constants.ConditionWord;
 import lombok.Data;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import tk.mybatis.mapper.annotation.KeySql;
@@ -35,7 +33,6 @@ public class OracleTkHero extends BeanManual<OracleHeroTkMapper,OracleTkHero> im
     @Id  //主
     @KeySql(sql = "select SBQ_FORM_REQUIRBMBNT_ID.nextval from dual",order=ORDER.BEFORE)
     private Integer id;
-    @Condition(ConditionWord.)
     private String username;
     private String profession;
     @Transient  //不扫描此字段
