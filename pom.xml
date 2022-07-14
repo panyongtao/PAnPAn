@@ -21,6 +21,7 @@
         <module>testdatabase</module>
         <module>istarter</module>
         <module>solr</module>
+        <module>apispring</module>
     </modules>
 
     <!--父依赖规定了版本-->
