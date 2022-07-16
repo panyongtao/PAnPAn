@@ -11,7 +11,7 @@ import java.io.IOException;
 public class IWebFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("我过滤了数据");
+        System.out.println("我使用了@WebFilter注解方式过滤了数据");
         filterChain.doFilter(servletRequest,servletResponse);
     }
 }

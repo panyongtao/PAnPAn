@@ -11,5 +11,11 @@
 
     <artifactId>quickstart</artifactId>
 
-
+    <dependencies>
+        <!--SpringSecurity启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+    </dependencies>
 </project>
