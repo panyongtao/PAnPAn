@@ -8,8 +8,13 @@ import pan.domain.ResponseResult;
 
 @RestController
 public class HelloController {
+    @RequestMapping("/hello1")
+    public String hello1(){
+        return "hello1";
+    }
 
     @RequestMapping("/hello")
+    /**权限启用-2 接口方法上使用注解*/
     @PreAuthorize("@ex.hasAuthority('system:dept:list')")
 //    @PreAuthorize("hasAnyAuthority('admin','test','system:dept:list')")
 //    @PreAuthorize("hasRole('system:dept:list')")

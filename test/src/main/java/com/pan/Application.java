@@ -131,6 +131,5 @@ public class Application {
 //            antMatchers( ....antPatterns: "/**") . authenticated() ;
 //            http. authorizeRequests(). antMatchers("/4NK"").permitAll();
 //        }
-//
 //    }
 }

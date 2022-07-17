@@ -28,16 +28,18 @@ public class LoginServiceImpl implements LoginServcie {
 
     @Override
     public ResponseResult login(User user) {
-        //AuthenticationManager authenticate进行用户认证
+        //根据外部传进来的用户名和密码生成token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
+        //认证管理器对生成的Token进行认证，此时进行了用户名和密码的比较
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-        //如果认证没通过，给出对应的提示
+        //如果认证没通过，给出对应的提示，
         if(Objects.isNull(authenticate)){
             throw new RuntimeException("登录失败");
         }
         //如果认证通过了，使用userid生成一个jwt jwt存入ResponseResult返回
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String userid = loginUser.getUser().getId().toString();
+        //这里使用的是用户id生成的JWT令牌
         String jwt = JwtUtil.createJWT(userid);
         Map<String,String> map = new HashMap<>();
         map.put("token",jwt);

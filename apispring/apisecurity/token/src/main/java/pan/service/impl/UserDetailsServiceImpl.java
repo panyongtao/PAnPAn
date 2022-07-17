@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 //        List<String> list = new ArrayList<>(Arrays.asList("test","admin"));
         List<String> list = menuMapper.selectPermsByUserId(user.getId());
-        //把数据封装成UserDetails返回
+        //把数据封装成UserDetails返回（包括用户名和密码）
         return new LoginUser(user,list);
     }
 }
