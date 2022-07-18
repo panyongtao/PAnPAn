@@ -1,6 +1,6 @@
 package com.pan.service;
 
-import com.pan.AppConfig;
+import com.pan.ImportConfig;
 import lombok.Data;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,7 +15,7 @@ public class NotNeedWiredUserService {
     private OrderService orderService;
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
         NotNeedWiredUserService bean = context.getBean(NotNeedWiredUserService.class);
         System.out.println(bean);
     }

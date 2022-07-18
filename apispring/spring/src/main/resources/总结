@@ -6,3 +6,10 @@
 
 还可以标注在一个自定义注解上，不支持标注在静态属性上
 spring中对象有普通的bean对象和代理对象比如加了@Lazy，@Transanctional,@Configuration注解
+
+
+bean的生成，常规注解，@Bean注解，@Value #bean名字，@Import3种，FactoryBean
+@Configuration,@ImportResource,BeanDefintionRegistryPostProccessor,
+applicationContext.registerBean()
+applicationContext.register()
+applicationContext.registerBeanDefinition()

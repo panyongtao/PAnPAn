@@ -1,6 +1,6 @@
 package com.pan.service;
 
-import com.pan.AppConfig;
+import com.pan.ImportConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class PrototypeBean {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
         System.out.println(context.getBean(PrototypeBean.class));
         System.out.println(context.getBean(PrototypeBean.class));
         System.out.println(context.getBean(PrototypeBean.class));

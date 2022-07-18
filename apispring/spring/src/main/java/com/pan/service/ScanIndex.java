@@ -1,6 +1,6 @@
 package com.pan.service;
 
-import com.pan.AppConfig;
+import com.pan.ImportConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class ScanIndex {
 //    目前没有生效
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
         User bean = context.getBean(User.class);
         System.out.println(bean);
         ScanIndex bean1 = context.getBean(ScanIndex.class);

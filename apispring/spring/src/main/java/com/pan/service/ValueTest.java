@@ -1,6 +1,6 @@
 package com.pan.service;
 
-import com.pan.AppConfig;
+import com.pan.ImportConfig;
 import com.pan.service.ano.LocalServerPort;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class ValueTest {
         System.out.println(port);
     }
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
         ValueTest bean = context.getBean(ValueTest.class);
         System.out.println(bean);
     }

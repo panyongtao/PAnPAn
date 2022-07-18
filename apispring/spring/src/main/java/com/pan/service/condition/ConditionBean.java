@@ -1,22 +1,22 @@
-package com.pan.service;
+package com.pan.service.condition;
 
 import com.pan.ImportConfig;
-import com.pan.service.ano.MyComponent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author pan
- * @Date 2022/7/18 16:29
+ * @Date 2022/7/18 17:05
  * @Version 1.0
- *
- * 自定义注解如果也想把对象放到spring容器当中需要和@ComponentScan
- * 注解配合使用
+ * 测试条件注解
  */
-@MyComponent
-public class SelfBean {
+@Component
+@Conditional(MyCondition.class)
+public class ConditionBean {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
-        SelfBean bean = context.getBean(SelfBean.class);
+        ConditionBean bean = context.getBean(ConditionBean.class);
         System.out.println(bean);
     }
 }

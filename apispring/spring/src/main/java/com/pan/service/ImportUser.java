@@ -3,20 +3,21 @@ package com.pan.service;
 import com.pan.ImportConfig;
 import com.pan.service.ano.MyComponent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 /**
  * @Author pan
- * @Date 2022/7/18 16:29
+ * @Date 2022/7/18 19:45
  * @Version 1.0
- *
- * 自定义注解如果也想把对象放到spring容器当中需要和@ComponentScan
- * 注解配合使用
+ * 导入Bean仍然可以
  */
-@MyComponent
-public class SelfBean {
+@ComponentScan(value = "com.pan",
+        includeFilters = @ComponentScan.Filter(type=FilterType.ANNOTATION,value=MyComponent.class))
+public class ImportUser {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(ImportConfig.class);
-        SelfBean bean = context.getBean(SelfBean.class);
+        ImportUser bean = context.getBean(ImportUser.class);
         System.out.println(bean);
     }
 }
