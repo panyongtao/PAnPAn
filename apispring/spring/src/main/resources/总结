@@ -1,0 +1,8 @@
+@AutoWired的注解用在方法上，入参会从spring中找一个对象出来
+可以标注在set方法，构造函数，普通方法，属性上
+先根据类型来找，后根据名字
+
+@Resource先根据名字然后根据类型来找，属于java扩展包的一个注解
+
+还可以标注在一个自定义注解上，不支持标注在静态属性上
+spring中对象有普通的bean对象和代理对象比如加了@Lazy，@Transanctional,@Configuration注解
