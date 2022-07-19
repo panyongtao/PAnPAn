@@ -12,7 +12,8 @@ import org.springframework.core.type.AnnotationMetadata;
 public class ImportSelector implements org.springframework.context.annotation.ImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        //返回一个Bean名字
+        //返回一个一个类的全名,Bean的名字是自动和类映射
+        System.out.println(ImportSelectBean.class.getName());
         return new String[]{ImportSelectBean.class.getName()};
     }
 }

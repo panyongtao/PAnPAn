@@ -14,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
  * FilterType 可以是注解也可以是接口，切面
  */
 @PropertySource("spring.properties")
-@Import(ImportUser.class)//导入的bean其实是一个配置bean
+@Import(ImportUser.class)//导入的bean其实是一个配置bean，会在Bean靠后的位置导入bean
 public class ImportConfig {
     /**autowireCandidate=false标识此bean不能被其他bean导入使用*/
     @Bean(autowire = Autowire.BY_NAME)

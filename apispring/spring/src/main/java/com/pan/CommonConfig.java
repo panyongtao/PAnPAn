@@ -2,6 +2,9 @@ package com.pan;
 
 import com.pan.service.*;
 import com.pan.service.ano.MyComponent;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.context.annotation.*;
 
@@ -30,6 +33,7 @@ public class CommonConfig {
      * 会变成原生模式（lite模式）
      * 使用@Configuration注解就会解决这些问题
      * proxyBeanMethods=false 也是原生模式
+     * 标识bean方法不是一个代理方法
      * */
     @Bean
     public User user(){
@@ -41,6 +45,23 @@ public class CommonConfig {
         System.out.println(user());
         return new Order();
     }
+    @Bean
+    public ProxyFactoryBean userServiceProxy() {
+        UserService userService = new UserService();
+        ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
+        proxyFactoryBean.setTarget(userService);
+        proxyFactoryBean.addAdvice(new MethodInterceptor(){
+            @Override
+            public Object invoke( MethodInvocation invocation) throws Throwable {
+                System.out.println("构造代理bean前");
+                Object proceed = invocation.proceed();
+                System.out.println("构造代理bean后");
+                return proceed;
+            }
+        });
+        return proxyFactoryBean;
+    }
+
     public static void main(String[] args) {
         //哪怕AppConfig不加任何注解都行 但只限于本类
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(CommonConfig.class);
@@ -50,5 +71,7 @@ public class CommonConfig {
         //测试使用ImportUser包扫描，导入的Bean实际上是一个配置Bean
         OrderService bean1 = context.getBean(OrderService.class);
         System.out.println(bean1);
+        UserService userServiceProxy = (UserService) context.getBean("userServiceProxy");
+        userServiceProxy.test();
     }
 }

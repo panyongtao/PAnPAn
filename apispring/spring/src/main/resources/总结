@@ -13,3 +13,5 @@ bean的生成，常规注解，@Bean注解，@Value #bean名字，@Import3种，
 applicationContext.registerBean()
 applicationContext.register()
 applicationContext.registerBeanDefinition()
+
+bean的作用域范文有单例，多例，request，session，Application
