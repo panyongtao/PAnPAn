@@ -1,6 +1,7 @@
 package com.pan.test;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ejlchina.searcher.BeanSearcher;
 import com.ejlchina.searcher.util.MapUtils;
 import com.github.pagehelper.PageHelper;
@@ -177,7 +178,21 @@ public class TestHero {
      */
     @Test
     public void test2(){
-        System.out.println(new MybatisHero().selectAll());
+//        System.out.println(beanSearcher.search(MybatisHero.class, new HashMap<>()));
+        //这里是有问题的
+        LambdaQueryWrapper<MybatisHero> wrapper=new LambdaQueryWrapper();
+        wrapper.eq(MybatisHero::getId,"1");
+        System.out.println(mybatisHeroMapper.selectList(wrapper));
+//        System.out.println(new MybatisHero().selectAll());
+    }
+    /**
+     * mybatis
+     */
+    @Test
+    public void test211(){
+        LambdaQueryWrapper<MybatisHero> wrapper=new LambdaQueryWrapper();
+        wrapper.eq(MybatisHero::getId,"1");
+//        System.out.println(new MybatisHero().selectList(wrapper));
     }
     /**
      * 测试动态数据源事务回滚,必须开启事务注解才会生效

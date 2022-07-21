@@ -1,4 +1,4 @@
-package com.pan.dynamictable.test;
+package com.pan.dynamictablemybatis.test;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -6,10 +6,11 @@ import com.google.common.collect.Maps;
 import com.pan.Application;
 import com.pan.datasource.DynamicDataSource;
 import com.pan.dynamictable.DynamicConfig;
-import com.pan.dynamictable.DynamicEntity;
-import com.pan.dynamictable.DynamicService;
 import com.pan.dynamictable.DynamicWrapper;
-import com.pan.mapper.DynamicMapper;
+import com.pan.dynamictablemybatis.DyEntity;
+import com.pan.dynamictablemybatis.DyService;
+import com.pan.dynamictablemybatis.DyWrapper;
+import com.pan.mapper.DyMapper;
 import org.junit.runner.RunWith;
 import org.springblade.core.tool.api.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ import java.util.HashMap;
 @SpringBootTest(classes=Application.class)
 public class Test {
     @Autowired
-    private  DynamicService dynamicService;
+    private DyService dynamicService;
     @Autowired
-    private DynamicMapper dynamicMapper;
+    private DyMapper dynamicMapper;
     @org.junit.Test
     public void test(){
         System.out.println(dynamicService.getById("tb_hero",1l));
@@ -42,7 +43,7 @@ public class Test {
      */
     @org.junit.Test
     public void testsave(){
-        DynamicEntity entity = new DynamicEntity();
+        DyEntity entity = new DyEntity();
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("username","panpan");
         entity.setParams(map);
@@ -55,9 +56,9 @@ public class Test {
     @org.junit.Test
     public void testOracleSave(){
         DynamicDataSource.datasourceName.set("Oracle");
-        DynamicEntity entity = new DynamicEntity();
+        DyEntity entity = new DyEntity();
         HashMap<String, Object> map = Maps.newHashMap();
-        map.put("username","panpan13");
+        map.put("username","panpan12");
         Long seq_tb_hero = dynamicService.selectSeq("seq_tb_hero");
         entity.setId(seq_tb_hero);
         entity.setTableName("tb_hero");
@@ -86,9 +87,9 @@ public class Test {
      */
     @org.junit.Test
     public void testUpdate(){
-        DynamicEntity entity = new DynamicEntity();
+        DyEntity entity = new DyEntity();
         HashMap<String, Object> map = Maps.newHashMap();
-        map.put("username","panpan2");
+        map.put("username","panpan1");
         entity.setParams(map);
         entity.setId(12L);
         entity.setTableName("tb_hero");
@@ -103,7 +104,7 @@ public class Test {
     public void testPage(){
         DynamicDataSource.datasourceName.set("Mysql");
         System.out.println(DynamicDataSource.getDatasourceType());
-        DynamicWrapper wrapper=new DynamicWrapper();
+        DyWrapper wrapper=new DyWrapper();
         wrapper.setTableName("tb_hero");
         wrapper.setCurrent(2);
         wrapper.setSize(5);
@@ -126,7 +127,7 @@ public class Test {
      */
     @org.junit.Test
     public void testList(){
-        DynamicWrapper wrapper=new DynamicWrapper();
+        DyWrapper wrapper=new DyWrapper();
         wrapper.setTableName("tb_hero");
         System.out.println(dynamicService.list(wrapper));
     }
@@ -147,7 +148,6 @@ public class Test {
         DynamicWrapper wrapper=new DynamicWrapper();
         wrapper.setTableName("tb_hero");
         DynamicDataSource.datasourceName.set("Oracle");
-        dynamicService.count(wrapper);
+//        dynamicService.count(wrapper);
     }
-
 }
