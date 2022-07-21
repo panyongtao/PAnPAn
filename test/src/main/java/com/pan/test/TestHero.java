@@ -179,7 +179,7 @@ public class TestHero {
     @Test
     public void test2(){
 //        System.out.println(beanSearcher.search(MybatisHero.class, new HashMap<>()));
-        //这里是有问题的
+        //这里是有问题的，除非把动态数据源去掉
         LambdaQueryWrapper<MybatisHero> wrapper=new LambdaQueryWrapper();
         wrapper.eq(MybatisHero::getId,"1");
         System.out.println(mybatisHeroMapper.selectList(wrapper));
