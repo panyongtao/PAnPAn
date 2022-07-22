@@ -14,6 +14,10 @@ import pan.mapper.UserMapper;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * UserDetailsService主要用来加载用户信息
+ * 我可以事先用接口注入对象，可先不考虑实现
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -25,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+        //提前查询并存储用户的账号信息
         //查询用户信息
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUserName,username);

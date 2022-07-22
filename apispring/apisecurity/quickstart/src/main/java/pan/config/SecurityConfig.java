@@ -23,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     /**默认登录/login 推出 /logout*/
     protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().antMatchers("/css/**", "/login.html","/main").permitAll()//设置匹配的资源放行
+//                         .anyRequest().authenticated();//剩余任何资源必须认证
+
         http.formLogin()
 //                配置认证成功处理器
                 .successHandler(successHandler)

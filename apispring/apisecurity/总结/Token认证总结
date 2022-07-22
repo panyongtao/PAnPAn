@@ -1,8 +1,9 @@
 用户在登录系统的时候会通过一个Token过滤器，发现此用户并没有认证，
 之后会通过UserDetailService加载用户的方法，这一步会把用户名和权限信息传递过去
 之后就会执行login接口的方法，
-    根据 userId生成jwt令牌并存储到redis中
+    根据 userId生成jwt令牌并存储到redis中，！！！UsernamePasswordAuthenticationFilter认证过滤在这时并没有用到
 
+二次登录时主要靠那个过滤器验证token是否生效
 下次再访问的时候就再次通过Token过滤器时就会从Token中获取到userid，
 然后再根据userid到redis中找到token找到的话说明认证成功
 退出时再删除redis缓存

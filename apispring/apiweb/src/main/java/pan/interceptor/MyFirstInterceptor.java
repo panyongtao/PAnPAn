@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * springboot中使用拦截器1.定义拦截器 2.WebMvcConfig添加拦截器规则
  * 所有的过滤器执行完之后，才会执行拦截器
+ * 也可以把这个拦截器交给spring容器管理
+ *
+ * 以前的版本是继承HandlerInterceptorAdapt类
  */
+//@Component
 public class MyFirstInterceptor implements HandlerInterceptor {
     @Override
     //当处理器方法执行之前调用

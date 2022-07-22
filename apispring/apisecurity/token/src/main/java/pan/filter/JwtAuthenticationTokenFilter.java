@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * OncePerRequestFilter确保一次请求只会调用一次filter
+ * 因为后端返回时也会经过过滤器链
+ */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
@@ -46,8 +50,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String redisKey = "login:" + userid;
         LoginUser loginUser = redisCache.getCacheObject(redisKey);
         if(Objects.isNull(loginUser)){
+            //这一部分需要增加重定向
+//            ((HttpServletResponse) response).sendRedirect("user/login");
             throw new RuntimeException("用户未登录");
         }
+        //认证成功后会将认证信息存到SecurityContextHolder容器里面
         //存入SecurityContextHolder
         //TODO 获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =
