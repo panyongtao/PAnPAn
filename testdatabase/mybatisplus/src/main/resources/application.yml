@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: pan1234
+
+
+logging:
+  level:
+    com.pan: info
+  pattern:
+    console: "%d{HH:mm:ss} %-4level - %msg%n"
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pan.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #配置sqL打印
+    map-underscore-to-camel-case: true #识别驼峰命名法
+    cache-enabled: true
+
+
+
