@@ -8,6 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Version 1.0
  */
 @SpringBootApplication
-@EnableResourceServer
+//@EnableResourceServer
 public class OAuthServerApplication {
 }
