@@ -22,6 +22,8 @@ import pan.filter.JwtAuthenticationTokenFilter;
  * 退出页面默认 /logout
  *
  * 黑马认证的原理是直接加载用户，登录成功就会调整，认证采用自动认证
+ *
+ * securedEnabled
  * */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -69,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/testCors").hasAuthority("system:dept:list222") 资源权限配置
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
-
+//        http.authorizeRequests().anyRequest().permitAll(); 允许所有的请求
         //添加过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //配置异常处理器

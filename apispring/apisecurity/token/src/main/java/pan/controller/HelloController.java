@@ -14,7 +14,9 @@ public class HelloController {
     }
 
     @RequestMapping("/hello")
-    /**权限启用-2 接口方法上使用注解*/
+    /**权限启用-2 接口方法上使用注解
+     * 还有两种注解@PostAuthorize,@Secured
+     * */
     @PreAuthorize("@ex.hasAuthority('system:dept:list')")
 //    @PreAuthorize("hasAnyAuthority('admin','test','system:dept:list')")
 //    @PreAuthorize("hasRole('system:dept:list')")

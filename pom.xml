@@ -23,6 +23,7 @@
         <module>solr</module>
         <module>apispring</module>
         <module>mvc</module>
+        <module>lombok</module>
     </modules>
 
     <!--父依赖规定了版本-->
