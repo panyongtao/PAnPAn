@@ -1,0 +1,52 @@
+server:
+  port: 80
+  servlet:
+    context-path: /flowable-ui
+
+spring:
+  jms:
+    unique-names: true
+    default-domain: ${spring.application.name}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: pan1234
+    hikari:
+      pool-name: ${spring.application.name}
+      max-lifetime: 600000
+      idle-timeout: 300000
+      minimumIdle: 10
+      maximumPoolSize: 50
+  aop:
+    proxy-target-class: false
+    auto: false
+  application:
+    name: flowable-ui
+  banner:
+    location: classpath:/org/flowable/spring/boot/flowable-banner.txt
+  security:
+    filter:
+      dispatcher-types: REQUEST,FORWARD,ASYNC
+  task:
+    scheduling:
+      pool:
+        size: 5
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+    health:
+      show-details: when_authorized
+      roles: access-admin
+
+flowable:
+  common:
+    app:
+      role:
+        prefix:
+  process
+
+
+
