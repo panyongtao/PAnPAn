@@ -16,6 +16,7 @@
         <module>apisecurity</module>
         <module>spring</module>
         <module>springboot</module>
+        <module>cloud</module>
     </modules>
 
 

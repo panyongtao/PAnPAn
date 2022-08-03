@@ -25,6 +25,7 @@
         <module>mvc</module>
         <module>lombok</module>
         <module>flowable</module>
+        <module>thread</module>
     </modules>
 
     <!--父依赖规定了版本-->
