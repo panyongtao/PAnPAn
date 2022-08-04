@@ -13,8 +13,6 @@
         <module>consumer</module>
         <module>api</module>
         <module>service</module>
-        <module>wcpconsumer</module>
-        <module>wcpservice</module>
         <module>BeanSearcher</module>
         <module>OkHttp</module>
         <module>testjvm</module>
