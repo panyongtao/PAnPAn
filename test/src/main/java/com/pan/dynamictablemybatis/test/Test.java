@@ -11,12 +11,14 @@ import com.pan.dynamictablemybatis.DyEntity;
 import com.pan.dynamictablemybatis.DyService;
 import com.pan.dynamictablemybatis.DyWrapper;
 import com.pan.mapper.DyMapper;
+import lombok.SneakyThrows;
 import org.junit.runner.RunWith;
 import org.springblade.core.tool.api.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
@@ -24,12 +26,14 @@ import java.util.HashMap;
 @SpringBootTest(classes=Application.class)
 public class Test {
     @Autowired
-    private DyService dynamicService;
+    private DyService dyService;
+    @Autowired
+    private DyService dynamicService2;
     @Autowired
     private DyMapper dynamicMapper;
     @org.junit.Test
     public void test(){
-        System.out.println(dynamicService.getById("tb_hero",1l));
+        System.out.println(dyService.getById("tb_hero",1l));
     }
 
     @Autowired
@@ -50,7 +54,7 @@ public class Test {
         entity.setId(0L);
         entity.setTableName("tb_hero");
         entity.setDateFormat(new SimpleDateFormat());
-        dynamicService.save(entity);
+        dyService.save(entity);
     }
     /**需要关闭主键自动生成策略*/
     @org.junit.Test
@@ -59,11 +63,11 @@ public class Test {
         DyEntity entity = new DyEntity();
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("username","panpan12");
-        Long seq_tb_hero = dynamicService.selectSeq("seq_tb_hero");
+        Long seq_tb_hero = dyService.selectSeq("seq_tb_hero");
         entity.setId(seq_tb_hero);
         entity.setTableName("tb_hero");
         entity.setParams(map);
-        dynamicService.save(entity);
+        dyService.save(entity);
 //        System.out.println(dynamicService.querySql("select seq_tb_hero.nextval from dual"));
         //System.out.println(dynamicService.selectSeq("seq_tb_hero"));
     }
@@ -73,13 +77,13 @@ public class Test {
      */
     @org.junit.Test
     public void testExistTable(){
-        dynamicService.existTable("tb_hero");
+        dyService.existTable("tb_hero");
     }
 
     @org.junit.Test
     public void testTableColumn(){
         DynamicDataSource.datasourceName.set("Oracle");
-        dynamicService.selectColumns("tb_hero");
+        dyService.selectColumns("tb_hero");
     }
 
     /**
@@ -94,7 +98,7 @@ public class Test {
         entity.setId(12L);
         entity.setTableName("tb_hero");
         entity.setDateFormat(new SimpleDateFormat());
-        dynamicService.updateById(entity);
+        dyService.updateById(entity);
     }
 
     /**
@@ -109,7 +113,7 @@ public class Test {
         wrapper.setCurrent(2);
         wrapper.setSize(5);
         IPage page= new Page();
-        page.setTotal(dynamicService.count(wrapper));
+        page.setTotal(dyService.count(wrapper));
         Long pages;
         if(page.getTotal()%page.getSize()==0){
             pages=page.getTotal()/page.getSize();
@@ -118,7 +122,7 @@ public class Test {
         }
         page.setPages(pages);
 
-        page.setRecords(dynamicService.list(wrapper));
+        page.setRecords(dyService.list(wrapper));
         System.out.println(R.data(page));
     }
 
@@ -129,7 +133,26 @@ public class Test {
     public void testList(){
         DyWrapper wrapper=new DyWrapper();
         wrapper.setTableName("tb_hero");
-        System.out.println(dynamicService.list(wrapper));
+        System.out.println(dyService.list(wrapper));
+    }
+    /**
+     * 列表查询或者分页查询
+     */
+    @org.junit.Test
+    public void testList1(){
+        DyWrapper wrapper=new DyWrapper();
+        wrapper.setTableName("cable");
+        System.out.println(dyService.list(wrapper));
+    }
+
+    /**
+     * 列表查询或者分页查询
+     */
+    @org.junit.Test
+    public void testList2(){
+        DyWrapper wrapper=new DyWrapper();
+        wrapper.setTableName("cable");
+        System.out.println(dyService.list(wrapper));
     }
 
 
@@ -138,7 +161,7 @@ public class Test {
      */
     @org.junit.Test
     public void testSql(){
-        dynamicService.querySql("select * from tb_hero");
+        dyService.querySql("select * from tb_hero");
     }
     /**
      * 查询数量
@@ -149,5 +172,12 @@ public class Test {
         wrapper.setTableName("tb_hero");
         DynamicDataSource.datasourceName.set("Oracle");
 //        dynamicService.count(wrapper);
+    }
+    @org.junit.Test
+    @SneakyThrows
+    public void testT(){
+        Class<? extends DyService> clazz = dynamicService2.getClass();
+        Method f = clazz.getMethod("f");
+        f.invoke(dynamicService2);
     }
 }
