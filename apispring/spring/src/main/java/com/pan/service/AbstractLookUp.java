@@ -22,5 +22,6 @@ public abstract class AbstractLookUp {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(CommonConfig.class);
         AbstractLookUp bean = context.getBean(AbstractLookUp.class);
         System.out.println(bean);
+        System.out.println(context.getBean("abstractLookUp"));
     }
 }

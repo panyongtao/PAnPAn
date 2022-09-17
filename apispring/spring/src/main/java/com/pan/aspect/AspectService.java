@@ -10,7 +10,7 @@ public class AspectService {
         System.out.println(123);
     }
     public static void main(String[] args) {
-        //使用时需要安装一个插件
+        //使用时需要安装一个插件，暂时没测出效果
         new AspectService().foo();
     }
 }

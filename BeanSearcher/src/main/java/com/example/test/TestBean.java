@@ -8,9 +8,7 @@ import com.ejlchina.searcher.operator.GreaterEqual;
 import com.ejlchina.searcher.param.Operator;
 import com.ejlchina.searcher.util.MapUtils;
 import com.example.Application;
-import com.example.sbean.TbHeroExtend;
-import com.example.sbean.Tmp;
-import com.example.sbean.User;
+import com.example.sbean.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +26,7 @@ public class TestBean {
     private BeanSearcher beanSearcher;
     @Resource
     private MapSearcher mapSearcher;
+    /*查询所有*/
     @Test
     public void test(){
 //        System.out.println(new TbHero().searchAll());
@@ -35,7 +34,7 @@ public class TestBean {
         List<TbHeroExtend> tbHeroExtends = beanSearcher.searchAll(TbHeroExtend.class, new HashMap<>());
         System.out.println(tbHeroExtend.searchAll());
     }
-
+    /*动态域*/
     @Test
     public void test2(){
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -43,7 +42,37 @@ public class TestBean {
         SearchResult<Map<String, Object>> search = mapSearcher.search(Tmp.class, hashMap);
         System.out.println(search);
     }
-
+    /*数字范围*/
+    @Test
+    public void test3(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field("id",1,5).op(Operator.Between).build();
+        SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
+        System.out.println(search);
+    }
+    /*日期范围 时间：yyyy-MM-dd HH:mm*/
+    @Test
+    public void test4(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field(TbHero::getOnlinetime,"2020-10-21","2020-10-24").op(Operator.Between).build();
+        SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
+        System.out.println(search);
+    }
+    /*动态指定查询的表名*/
+    @Test
+    public void dynamicTable() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("table", "department");
+        System.out.println(mapSearcher.searchList(DTableBean.class, map));
+    }
+    /*只查询name*/
+    @Test
+    public void dynamicTable1() {
+        Map<String, Object> map = MapUtils.builder()
+                .onlySelect(DTableBean::getName).build();
+        map.put("table", "department");
+        System.out.println(mapSearcher.searchList(DTableBean.class, map));
+    }
     /**
      * 后端参数写法
      */

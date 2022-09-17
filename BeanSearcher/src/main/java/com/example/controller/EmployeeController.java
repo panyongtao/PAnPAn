@@ -44,11 +44,14 @@ public class EmployeeController  {
 
     /**
      * 员工列表检索接口 形式查询
+	 * 后台翻译请求参数
+	 *  MapUtils.flat(request.getParameterMap())
      */
     @GetMapping("/index")
     public Object index(@RequestParam Map<String, Object> params) {
         // 组合检索、排序、分页 和 统计 都在这一句代码中实现了
         EmployeeSearcherBean bean = new EmployeeSearcherBean ();
+		System.out.println(params);
         bean.setParams(params);
         val list=new ArrayList<String>();
         list.add("age");

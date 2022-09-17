@@ -3,6 +3,7 @@ package com.example;
 import com.ejlchina.json.JSONKit;
 import com.ejlchina.searcher.BeanMeta;
 import com.ejlchina.searcher.ParamFilter;
+import com.ejlchina.searcher.SqlExecutor;
 import com.ejlchina.searcher.dialect.Dialect;
 import com.ejlchina.searcher.dialect.OracleDialect;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,18 @@ public class Application implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
+    }
+    /*慢sql的事件监听*/
+    //@Bean
+    public SqlExecutor.SlowListener slowSqlListener() {
+        return (
+                Class<?> beanClass,     // 发生慢 SQL 的实体类
+                String slowSql,         // 慢 SQL 字符串
+                List<Object> params,    // SQL 执行参数
+                long timeCost           // 执行耗时（单位：ms）
+        ) -> {
+            // TODO: 监听处理
+        };
     }
 
 	/**
