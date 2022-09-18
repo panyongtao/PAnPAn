@@ -55,8 +55,11 @@ public class TestBean {
     public void test311(){
 //        Map<String, Object> hashMap = MapUtils.builder()
 //                .field("id").op(Operator.Equal).build();
+        String id = null;
+//        Map<String, Object> hashMap = MapUtils.builder()
+//                .field("id",id).op(Operator.Equal).build();
         Map<String, Object> hashMap = MapUtils.builder()
-                .field("id","").op(Operator.Equal).build();
+                .field("id",1).op(Operator.Contain).build();
         SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
         System.out.println(search);
     }
