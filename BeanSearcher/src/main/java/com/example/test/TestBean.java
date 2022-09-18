@@ -3,8 +3,7 @@ package com.example.test;
 import com.ejlchina.searcher.BeanSearcher;
 import com.ejlchina.searcher.MapSearcher;
 import com.ejlchina.searcher.SearchResult;
-import com.ejlchina.searcher.operator.Equal;
-import com.ejlchina.searcher.operator.GreaterEqual;
+import com.ejlchina.searcher.operator.*;
 import com.ejlchina.searcher.param.Operator;
 import com.ejlchina.searcher.util.MapUtils;
 import com.example.Application;
@@ -50,13 +49,57 @@ public class TestBean {
         SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
         System.out.println(search);
     }
+
+    /*测试参数为null或者为空*/
+    @Test
+    public void test311(){
+//        Map<String, Object> hashMap = MapUtils.builder()
+//                .field("id").op(Operator.Equal).build();
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field("id","").op(Operator.Equal).build();
+        SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
+        System.out.println(search);
+    }
+
     /*日期范围 时间：yyyy-MM-dd HH:mm*/
     @Test
     public void test4(){
         Map<String, Object> hashMap = MapUtils.builder()
                 .field(TbHero::getOnlinetime,"2020-10-21","2020-10-24").op(Operator.Between).build();
         SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
+        System.out.println(search.getDataList());
+    }
+    /*数字范围*/
+    @Test
+    public void test31(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .build();
+        SearchResult<Map<String, Object>> search = mapSearcher.search(TbHeroMax.class, hashMap);
         System.out.println(search);
+    }
+    /*动态条件sql*/
+    @Test
+    public void test41(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field(TbHero::getUsername).sql("$1='阿木'").build();
+        SearchResult<Map<String, Object>> search = mapSearcher.search(TbHero.class, hashMap);
+        System.out.println(search.getDataList());
+    }
+    /*只查询第一个*/
+    @Test
+    public void test5(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field(TbHero::getOnlinetime,"2020-10-21","2020-10-24").op(Operator.Between).build();
+        System.out.println(mapSearcher.searchFirst(TbHero.class, hashMap));
+    }
+    /*统计*/
+    @Test
+    public void test6(){
+        Map<String, Object> hashMap = MapUtils.builder()
+                .field(TbHero::getOnlinetime,"2020-10-20","2020-10-24").op(Operator.Between).build();
+        SearchResult<TbHero> search = beanSearcher.search(TbHero.class, hashMap, new String[]{"id"});
+        System.out.println(search.getDataList());
+        System.out.println(search.getSummaries()[0].intValue());
     }
     /*动态指定查询的表名*/
     @Test
@@ -112,5 +155,30 @@ public class TestBean {
                 .groupExpr("(A|B)&C")   // 组间逻辑关系
                 .build();
         params = MapUtils.builder(params).build();  // 在原有参数基础之上可以进行构建参数
+        //模糊查询
+         params = MapUtils.builder()
+                .field(User::getName, "A").op(Contain.class)    // 包含 A
+                .field(User::getName, "A").op(StartWith.class)  // 以 A 开头
+                .field(User::getName, "A").op(EndWith.class)    // 以 A 结尾
+                .field(User::getName, "A%", "%B", "%C%").op(OrLike.class)  // 以 A 开头 或 以 B 结尾 或 包含 C
+                .build();
+        //多值查询
+        params = MapUtils.builder()
+                .field(User::getId, 1, 2, 3).op(InList.class)
+                .build();
+        //非空查询
+        params = MapUtils.builder()
+                .field(User::getName).op(NotEmpty.class)
+                .build();
+        //多字段动态sql使用
+        params = MapUtils.builder()
+                // 生成 SQL 条件：id < 100 or age > 10
+                .field(User::getId, User::getAge).sql("$1 < 100 or $2 > 10")
+                .build();
+        //多字段占位符
+        params = MapUtils.builder()
+                // 生成 SQL 条件：id < ? or age > ?，两个占位符参数分别为：100，10
+                .field(User::getId, User::getAge).sql("$1 < ? or $2 > ?", 100, 10)
+                .build();
     }
 }

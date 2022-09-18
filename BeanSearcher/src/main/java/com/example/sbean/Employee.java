@@ -38,7 +38,7 @@ public class Employee implements BeanAware, ParamAware { // 这两接口 都是�
 	 */
 	@Override
 	public void afterAssembly() {
-//		System.out.println("id = " + id + ", name = " + name + ", age = " + age + ", ignoreField = " + ignoreField);
+		System.out.println("id = " + id + ", name = " + name + ", age = " + age + ", ignoreField = " + ignoreField);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Employee implements BeanAware, ParamAware { // 这两接口 都是�
 	 */
 	@Override
 	public void afterAssembly(Map<String, Object> paraMap) {
-//		System.out.println("paraMap = " + paraMap);
+		System.out.println("paraMap = " + paraMap);
 	}
 
 }
